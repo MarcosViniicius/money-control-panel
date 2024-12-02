@@ -1,0 +1,49 @@
+<app-button
+  [buttonText]="'Criar Nova Sessão'"
+  [buttonStyle]="'blue'"
+  (click)="showForm()"
+></app-button>
+<app-button
+  [buttonText]="'Editar Sessão'"
+  [buttonStyle]="'blue'"
+  (click)="showForm()"
+></app-button>
+
+<form #form class="form-group d-none">
+  <label for="sessionName">Nome da Sessão</label>
+  <input
+    [(ngModel)]="model.name"
+    type="text"
+    class="form-control"
+    id="sessionName"
+    name="sessionName"
+    placeholder="Digite o nome da sessão"
+  />
+  <label for="sessionTypeTitle">Tipo de Sessão</label>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value=""
+      id="flexCheckDefault"
+    />
+    <label class="form-check-label" for="flexCheckDefault"> Pix </label>
+  </div>
+
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      value=""
+      id="flexCheckDefault"
+    />
+    <label class="form-check-label" for="flexCheckDefault"> Entregas </label>
+  </div>
+
+  <button type="submit" (click)="createSession()">enviar</button>
+  <app-button
+    type="submit"
+    [buttonText]="'Criar'"
+    [buttonStyle]="'green'"
+  ></app-button>
+</form>

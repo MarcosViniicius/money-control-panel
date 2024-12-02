@@ -1,0 +1,11 @@
+<button
+  type="button"
+  class="btn btn-primary btn-lg border-0"
+  [class]="{
+    'btn--red': style === 'red' ? true : false,
+    'btn--green': style === 'green' ? true : false,
+    'btn--blue': style === 'blue' ? true : false
+  }"
+>
+  {{ text }}
+</button>
