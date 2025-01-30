@@ -1,22 +1,44 @@
-<div class="cards">
-  <app-card
-    [titleCard]="'Entradas'"
-    [textCard]="
-      'Nos últimos 30 dias, houveram 100 Entradas, totalizando R$ 23,540.  '
-    "
-  ></app-card>
-  <app-card
-    [titleCard]="'Saídas'"
-    [textCard]="
-      'Nos últimos 30 dias, houveram 25 saídas, totalizando R$ 10,000.  '
-    "
-  >
-  </app-card>
-  <app-card
-    [titleCard]="'Cálculo de Saldo'"
-    [textCard]="
-      'Fazendo o cálculo básico de R$ 23,540 - R$ 10,000, temos um saldo total de R$ 13,540.'
-    "
-  >
-  </app-card>
+<div class="container mt-5">
+  <!-- Container para centralizar os cards -->
+  <div class="row justify-content-center">
+    <!-- Card 1: Controle de Entradas -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title display-6">Controle de Entradas</h5>
+          <p class="card-text">
+            Nos últimos 30 dias, houveram 100 Entradas, totalizando R$ 23,540.
+          </p>
+          <a href="entradas" class="btn btn-primary">Ver mais</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Controle de Saídas -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title display-6">Controle de Saídas</h5>
+          <p class="card-text">
+            Nos últimos 30 dias, houveram 25 saídas, totalizando R$ 10,000.
+          </p>
+          <a href="saidas" class="btn btn-primary">Ver mais</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Cálculo de Saldo -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title display-6">Cálculo de Saldo</h5>
+          <p class="card-text">
+            Fazendo o cálculo básico de R$ 23,540 - R$ 10,000, temos um saldo
+            total de R$ 13,540.
+          </p>
+          <a href="calculo-saldo" class="btn btn-primary">Ver mais</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

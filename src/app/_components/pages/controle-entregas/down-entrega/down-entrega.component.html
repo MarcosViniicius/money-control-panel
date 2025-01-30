@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <!-- Link de Voltar -->
+  <div class="d-flex justify-content-between mb-4">
+    <h4>Baixa de entregas</h4>
+    <a routerLink="/entregas_control" class="btn btn-outline-primary">Voltar</a>
+  </div>
+
+  <div class="card-body">
+    <div class="list-group">
+      <a
+        href="new_entrega"
+        class="list-group-item list-group-item-action d-flex justify-content-between fs-6 py-3 w-25 bg-info text-white border-0 rounded"
+      >
+        Cadastrar nova entrega
+        <i class="bi bi-plus-circle fs-6"></i>
+      </a>
+    </div>
+  </div>
+
+  <br />
+
+  <!-- Seleção do Entregador -->
+  <div class="mb-4">
+    <h5>Selecione o entregador:</h5>
+    <select [(ngModel)]="entregadorSelecionado" class="form-select mb-3">
+      <option value="">-- Selecione um entregador --</option>
+      <option *ngFor="let entregador of entregadores" [value]="entregador.nome">
+        {{ entregador.nome }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Entregas Cadastradas -->
+  <h5>Entregas cadastradas:</h5>
+  <div class="row justify-content-center">
+    <div
+      *ngFor="let entrega of entregasFiltradas; let i = index"
+      class="col-md-4 mb-4"
+    >
+      <div class="card shadow-sm h-100 border-info">
+        <div class="card-body text-center">
+          <h6 class="card-title text-primary">
+            <strong>Entrega {{ i + 1 }} ({{ entrega.endereco }})</strong>
+          </h6>
+          <p class="card-text mb-1">Valor: R$ {{ entrega.valor }}</p>
+          <p class="card-text mb-1">Endereço: {{ entrega.endereco }}</p>
+          <p class="card-text mb-1">
+            Observações: {{ entrega.observacoes || "Nenhuma" }}
+          </p>
+          <p class="card-text mb-2">Entregador: {{ entrega.entregadorNome }}</p>
+
+          <!-- Botões de Ação -->
+          <div class="d-flex justify-content-between gap-5 mt-3">
+            <button class="btn btn-warning" (click)="removerEntrega(i)">
+              Pendente
+            </button>
+            <button class="btn btn-success" (click)="removerEntrega(i)">
+              Concluída
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

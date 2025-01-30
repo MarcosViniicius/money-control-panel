@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <!-- Card com botões -->
+    <div class="col-lg-6 col-md-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-header text-center bg-primary text-white">
+          <h5 class="mb-0 display-4">Controle de Entregas</h5>
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <a
+              href="new_entrega"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center fs-4 py-3 bg-light border-0 rounded-3 mb-2"
+            >
+              Cadastrar nova entrega
+              <i class="bi bi-plus-circle fs-3 text-primary"></i>
+            </a>
+            <a
+              href="down_entrega"
+              class="list-group-item list-group-item-action d-flex justify-content-between align-items-center fs-4 py-3 bg-light border-0 rounded-3 mb-2"
+            >
+              Dar baixa em entrega
+              <i class="bi bi-check-circle fs-3 text-success"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Botão de exportação -->
+<div class="container mt-4 d-flex justify-content-center">
+  <button (click)="exportarParaExcel()" class="btn btn-primary w-50">
+    Exportar para Excel
+  </button>
+</div>
