@@ -1,0 +1,1 @@
+Executar este comando antes de dar Push no projeto para o GitHub: ng build --configuration=production (Necessário para hospedar no Vercel)

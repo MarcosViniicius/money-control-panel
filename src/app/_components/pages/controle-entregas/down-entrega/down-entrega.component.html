@@ -48,18 +48,30 @@
             Observações: {{ entrega.observacoes || "Nenhuma" }}
           </p>
           <p class="card-text mb-2">Entregador: {{ entrega.entregadorNome }}</p>
+          <p class="card-text mb-2">
+            Horário e data de cadastro: <br />
+            {{ entrega.dataHoraCriacao | date : " HH:mm:ss dd/MM/yyyy" }}
+          </p>
 
           <!-- Botões de Ação -->
           <div class="d-flex justify-content-between gap-5 mt-3">
-            <button class="btn btn-warning" (click)="removerEntrega(i)">
+            <button
+              disabled
+              class="btn btn-warning"
+              (click)="removerEntrega(i)"
+            >
               Pendente
             </button>
             <button class="btn btn-success" (click)="removerEntrega(i)">
-              Concluída
+              Dar baixa
             </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <button class="btn btn-secondary" (click)="imprimirControle()">
+    Imprimir Controle
+  </button>
 </div>

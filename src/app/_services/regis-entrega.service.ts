@@ -7,6 +7,7 @@ export interface Entrega {
   observacoes: string;
   entregador: number | null; // Permitir que seja null ou number
   entregadorNome?: string; // Nome do entregador (opcional)
+  dataHoraCriacao: Date;
 }
 
 export interface Entregador {
@@ -23,7 +24,7 @@ export class RegisEntregaService {
     { id: 1, nome: 'Edilson' },
     { id: 2, nome: 'Gabriel' },
     { id: 3, nome: 'Alessandro' },
-    { id: 4, nome: 'Tiago' },
+    { id: 4, nome: 'Henrique' },
     { id: 5, nome: 'Outro' },
   ];
 

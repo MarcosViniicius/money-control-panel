@@ -18,6 +18,7 @@ export class DownEntregaComponent {
     endereco: '',
     observacoes: '',
     entregador: null,
+    dataHoraCriacao: new Date(),
   };
 
   entregadores: Entregador[] = [];
@@ -40,5 +41,24 @@ export class DownEntregaComponent {
   removerEntrega(index: number): void {
     this.regisEntregaService.removerEntrega(index);
     this.entregas = this.regisEntregaService.getEntregas();
+  }
+
+  imprimirControle(): void {
+    let conteudo = '<div style="width: 58mm; font-size: 12px;">';
+    this.entregas.forEach((entrega) => {
+      conteudo += `<p>${entrega.endereco} - R$${entrega.valor} - ${entrega.entregadorNome}</p>`;
+    });
+    conteudo += '</div>';
+
+    const janelaImpressao = window.open('', '', 'width=300,height=600');
+    if (janelaImpressao) {
+      janelaImpressao.document.write(
+        '<html><head><title>Impressão</title></head><body>'
+      );
+      janelaImpressao.document.write(conteudo);
+      janelaImpressao.document.write('<script>window.print();</script>');
+      janelaImpressao.document.write('</body></html>');
+      janelaImpressao.document.close();
+    }
   }
 }

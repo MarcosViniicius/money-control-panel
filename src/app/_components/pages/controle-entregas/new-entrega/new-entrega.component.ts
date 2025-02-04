@@ -20,6 +20,7 @@ export class NewEntregaComponent implements OnInit {
     endereco: '',
     observacoes: '',
     entregador: null,
+    dataHoraCriacao: new Date(), // Novo campo adicionado
   };
 
   entregadores: Entregador[] = [];
@@ -46,11 +47,7 @@ export class NewEntregaComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
-    // Obtém os endereços das entregas já cadastradas
     const enderecosDinamicos = this.entregas.map((entrega) => entrega.endereco);
-
-    // Concatena os endereços fixos (do arquivo externo) com os dinâmicos (das entregas cadastradas)
     return [...this.enderecos, ...enderecosDinamicos].filter((endereco) =>
       endereco.toLowerCase().includes(filterValue)
     );
@@ -59,6 +56,7 @@ export class NewEntregaComponent implements OnInit {
   cadastrarEntrega(): void {
     try {
       this.entrega.endereco = this.enderecoControl.value || '';
+      this.entrega.dataHoraCriacao = new Date(); // Atribui a data/hora atual no momento do cadastro
       this.regisEntregaService.cadastrarEntrega(this.entrega);
       this.entregas = this.regisEntregaService.getEntregas();
 
@@ -67,6 +65,7 @@ export class NewEntregaComponent implements OnInit {
         endereco: '',
         observacoes: '',
         entregador: null,
+        dataHoraCriacao: new Date(), // Reseta o novo campo
       };
       this.enderecoControl.setValue('');
     } catch (error) {
