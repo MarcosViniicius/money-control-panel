@@ -44,16 +44,16 @@ export class DownEntregaComponent {
   }
 
   imprimirControle(): void {
-    let conteudo = '<div style="width: 58mm; font-size: 12px;">';
+    let conteudo = '<div style="width: 70mm; font-size: 19px;">';
     this.entregas.forEach((entrega) => {
-      conteudo += `<p>${entrega.endereco} - R$${entrega.valor} - ${entrega.entregadorNome}</p>`;
+      conteudo += `<p style="font-family: Courier New, monospace; word-wrap: break-word;">${entrega.endereco} - R$${entrega.valor} - ${entrega.entregadorNome}</p>`;
     });
     conteudo += '</div>';
 
     const janelaImpressao = window.open('', '', 'width=300,height=600');
     if (janelaImpressao) {
       janelaImpressao.document.write(
-        '<html><head><title>Impressão</title></head><body>'
+        '<html><head><title>Controle de Entregas</title></head><body>'
       );
       janelaImpressao.document.write(conteudo);
       janelaImpressao.document.write('<script>window.print();</script>');

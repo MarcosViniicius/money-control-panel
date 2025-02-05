@@ -5,6 +5,7 @@ import {
   Entrega,
   Entregador,
 } from '../../../_services/regis-entrega.service';
+import { ExportDataService } from '../../../_services/export-data.service';
 
 @Component({
   selector: 'app-controle-entregas',
@@ -12,8 +13,17 @@ import {
   styleUrl: './controle-entregas.component.scss',
 })
 export class ControleEntregasComponent {
-  constructor(private regisEntregaService: RegisEntregaService) {}
+  constructor(
+    private regisEntregaService: RegisEntregaService,
+    private ExportDataService: ExportDataService
+  ) {}
+  private entregas: Entrega[] = [];
+  ngOnInit(): void {
+    // Adiciona o ngOnInit
+    this.entregas = this.regisEntregaService.getEntregas();
+  }
+
   exportarParaExcel(): void {
-    this.regisEntregaService.exportarParaExcel();
+    this.ExportDataService.exportarParaExcel(this.entregas);
   }
 }

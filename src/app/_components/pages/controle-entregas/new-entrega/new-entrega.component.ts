@@ -7,7 +7,8 @@ import {
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { ENDERECOS } from '../enderecos'; // Importando a lista de endereços do arquivo externo
+import { ENDERECOS } from '../enderecos';
+import { ExportDataService } from '../../../../_services/export-data.service'; // Importe o serviço ExportDataService
 
 @Component({
   selector: 'app-new-entrega',
@@ -16,11 +17,11 @@ import { ENDERECOS } from '../enderecos'; // Importando a lista de endereços do
 })
 export class NewEntregaComponent implements OnInit {
   entrega: Entrega = {
-    valor: null,
+    valor: '',
     endereco: '',
     observacoes: '',
     entregador: null,
-    dataHoraCriacao: new Date(), // Novo campo adicionado
+    dataHoraCriacao: new Date(),
   };
 
   entregadores: Entregador[] = [];
@@ -29,7 +30,10 @@ export class NewEntregaComponent implements OnInit {
   filteredEnderecos!: Observable<string[]>;
   enderecos: string[] = ENDERECOS; // Usando a lista do arquivo externo
 
-  constructor(private regisEntregaService: RegisEntregaService) {}
+  constructor(
+    private regisEntregaService: RegisEntregaService,
+    private exportDataService: ExportDataService // Injete o serviço ExportDataService
+  ) {}
 
   ngOnInit(): void {
     this.entregadores = this.regisEntregaService.getEntregadores();
@@ -61,7 +65,7 @@ export class NewEntregaComponent implements OnInit {
       this.entregas = this.regisEntregaService.getEntregas();
 
       this.entrega = {
-        valor: null,
+        valor: '',
         endereco: '',
         observacoes: '',
         entregador: null,
@@ -79,7 +83,7 @@ export class NewEntregaComponent implements OnInit {
   }
 
   exportarParaExcel(): void {
-    this.regisEntregaService.exportarParaExcel();
+    this.exportDataService.exportarParaExcel(this.entregas); // Passe o array de entregas para o serviço
   }
 
   selecionarEndereco(endereco: string): void {
@@ -89,6 +93,17 @@ export class NewEntregaComponent implements OnInit {
   onEntregadorChange(): void {
     if (!this.entrega.entregador) {
       this.entrega.entregador = null;
+    }
+  }
+
+  formatarValor(): void {
+    if (this.entrega && this.entrega.valor) {
+      let valorFormatado = this.entrega.valor.replace(/\D/g, ''); // Remove tudo que não for número
+      if (valorFormatado.length > 2) {
+        valorFormatado =
+          valorFormatado.slice(0, -2) + ',' + valorFormatado.slice(-2);
+      }
+      this.entrega.valor = valorFormatado;
     }
   }
 }

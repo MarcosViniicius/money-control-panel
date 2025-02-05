@@ -1,100 +1,109 @@
-<form (ngSubmit)="cadastrarEntrega()" class="container mt-4">
-  <div class="d-flex justify-content-between mb-4">
-    <h4>Cadastro de Entrega</h4>
-    <a routerLink="/entregas_control" class="btn btn-outline-primary">Voltar</a>
-  </div>
-
-  <div class="mb-3">
-    <label for="valor" class="form-label">Valor(Digite só o valor)</label>
-    <input
-      type="number"
-      id="valor"
-      name="valor"
-      [(ngModel)]="entrega.valor"
-      required
-      class="form-control"
-      placeholder="Digite o valor da entrega"
-      step="0.01"
-      min="0"
-    />
-  </div>
-
-  <div class="mb-3">
-    <label for="endereco" class="form-label">Endereço</label>
-    <mat-form-field class="w-100">
-      <input
-        type="text"
-        id="endereco"
-        name="endereco"
-        [formControl]="enderecoControl"
-        required
-        matInput
-        placeholder="Digite o endereço"
-        [matAutocomplete]="auto"
-      />
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="selecionarEndereco($event.option.value)"
+<div class="container mt-4">
+  <div class="card p-4">
+    <div class="d-flex justify-content-between mb-3">
+      <h4>Cadastro de Entrega</h4>
+      <a routerLink="/entregas_control" class="btn btn-outline-primary"
+        >Voltar</a
       >
-        <mat-option
-          *ngFor="let endereco of filteredEnderecos | async"
-          [value]="endereco"
+    </div>
+
+    <form (ngSubmit)="cadastrarEntrega()">
+      <div class="mb-3">
+        <label for="valor" class="form-label">Valor</label>
+        <input
+          type="text"
+          id="valor"
+          name="valor"
+          [(ngModel)]="entrega.valor"
+          (input)="formatarValor()"
+          required
+          class="form-control"
+          placeholder="Digite o valor da entrega"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="endereco" class="form-label">Endereço</label>
+        <mat-form-field class="w-100">
+          <input
+            type="text"
+            id="endereco"
+            name="endereco"
+            [formControl]="enderecoControl"
+            required
+            matInput
+            placeholder="Digite o endereço"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selecionarEndereco($event.option.value)"
+          >
+            <mat-option
+              *ngFor="let endereco of filteredEnderecos | async"
+              [value]="endereco"
+            >
+              {{ endereco }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+
+      <div class="mb-3">
+        <label for="entregador" class="form-label">Entregador</label>
+        <select
+          id="entregador"
+          name="entregador"
+          [(ngModel)]="entrega.entregador"
+          required
+          class="form-control"
+          (change)="onEntregadorChange()"
         >
-          {{ endereco }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+          <option value="">Selecione um entregador</option>
+          <option
+            *ngFor="let entregador of entregadores"
+            [ngValue]="entregador.id"
+          >
+            {{ entregador.nome }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="observacoes" class="form-label"
+          >Observações (opcional)</label
+        >
+        <input
+          type="text"
+          id="observacoes"
+          name="observacoes"
+          [(ngModel)]="entrega.observacoes"
+          class="form-control"
+          placeholder="Observações adicionais"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="
+          !entrega.valor || !enderecoControl.value || !entrega.entregador
+        "
+      >
+        Cadastrar Entrega
+      </button>
+    </form>
   </div>
 
-  <div class="mb-3">
-    <label for="entregador" class="form-label">Nome do Entregador</label>
-    <select
-      id="entregador"
-      name="entregador"
-      class="form-control"
-      [(ngModel)]="entrega.entregador"
-      required
-      (change)="onEntregadorChange()"
-    >
-      <option value="">Selecione um entregador</option>
-      <option *ngFor="let entregador of entregadores" [ngValue]="entregador.id">
-        {{ entregador.nome }}
-      </option>
-    </select>
-  </div>
-
-  <div class="mb-3">
-    <label for="observacoes" class="form-label">Observações (opcional)</label>
-    <input
-      type="text"
-      id="observacoes"
-      name="observacoes"
-      [(ngModel)]="entrega.observacoes"
-      class="form-control"
-      placeholder="Observações adicionais"
-    />
-  </div>
-
-  <button
-    type="submit"
-    class="btn btn-primary w-100"
-    [disabled]="!entrega.valor || !enderecoControl.value || !entrega.entregador"
-  >
-    Cadastrar Entrega
-  </button>
-</form>
-
-<br />
-
-<!-- Link para dar baixa em entrega -->
-<div class="card-body">
-  <div class="list-group">
-    <a
-      href="down_entrega"
-      class="list-group-item list-group-item-action d-flex justify-content-between py-3 fs-4 w-25 mx-auto bg-success text-white border-0 rounded"
-    >
-      <span>Dar baixa em entrega</span>
-      <i class="bi bi-check-circle fs-3"></i>
-    </a>
+  <div class="card p-4 mt-4">
+    <div class="list-group">
+      <a
+        href="down_entrega"
+        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-2 px-3 w-100 w-md-75 mx-auto bg-success text-white border-0 rounded"
+      >
+        <span>Dar baixa em entrega</span>
+        <i class="bi bi-check-circle"></i>
+      </a>
+    </div>
   </div>
 </div>
